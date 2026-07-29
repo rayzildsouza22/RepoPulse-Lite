@@ -1,24 +1,23 @@
 from fastapi import FastAPI
-from app.config import settings
+from app.api.v1.analyze import router as analyze_router
 
 app = FastAPI(
-    title=settings.APP_NAME,
-    description="AI Powered GitHub Repository Analytics",
-    version=settings.VERSION,
+    title="RepoPulse Lite API",
+    version="1.0.0"
+)
+
+app.include_router(
+    analyze_router,
+    prefix="/api/v1",
+    tags=["Repository Analysis"]
 )
 
 
 @app.get("/")
 def root():
-    return {
-        "application": settings.APP_NAME,
-        "version": settings.VERSION,
-        "status": "running"
-    }
+    return {"message": "RepoPulse Lite API Running 🚀"}
 
 
 @app.get("/health")
 def health():
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}
