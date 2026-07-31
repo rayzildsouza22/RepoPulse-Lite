@@ -19,9 +19,9 @@ function RepositoryHeader({ repository, info }: Props) {
     <motion.div
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
-      className="rounded-2xl border border-slate-700 bg-[#151C27] p-10 shadow-xl"
+      className="card rounded-2xl border border-slate-700 bg-[#151C27] shadow-xl"
     >
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-3xl font-bold text-white">
         {info.name}
       </h1>
 

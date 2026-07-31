@@ -3,6 +3,7 @@ import {
   BarChart,
   Bar,
   XAxis,
+  YAxis,
   Tooltip,
   CartesianGrid,
 } from "recharts";
@@ -30,26 +31,41 @@ function TierDistribution({ distribution }: Props) {
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-700 bg-[#151C27] p-8 shadow-xl">
+    <div className="card rounded-2xl border border-slate-700 bg-[#151C27] shadow-lg">
       <h2 className="mb-6 text-2xl font-bold text-white">
         📈 Commit Tier Distribution
       </h2>
 
-      <div className="h-80">
+      <div className="h-[420px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
-            <CartesianGrid stroke="#334155" strokeDasharray="3 3" />
+            <CartesianGrid
+              stroke="#334155"
+              strokeDasharray="4 4"
+            />
 
             <XAxis
               dataKey="tier"
-              stroke="#94A3B8"
+              stroke="#CBD5E1"
             />
 
-            <Tooltip />
+            <YAxis
+              stroke="#CBD5E1"
+            />
+
+            <Tooltip
+              contentStyle={{
+                background: "#151C27",
+                border: "1px solid #334155",
+                borderRadius: "10px",
+                color: "#fff",
+              }}
+            />
 
             <Bar
               dataKey="commits"
-              radius={[8, 8, 0, 0]}
+              fill="#0EA5E9"
+              radius={[10, 10, 0, 0]}
             />
           </BarChart>
         </ResponsiveContainer>

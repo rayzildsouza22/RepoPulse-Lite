@@ -24,6 +24,7 @@
 html,
 body,
 #root {
+  width: 100%;
   min-height: 100%;
 }
 
@@ -52,6 +53,62 @@ input,
 button,
 textarea {
   font: inherit;
+}
+
+.ai-markdown {
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+.ai-markdown h1,
+.ai-markdown h2,
+.ai-markdown h3,
+.ai-markdown h4 {
+  color: #38bdf8;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+.ai-markdown h1 { font-size: 1.3rem; }
+.ai-markdown h2 { font-size: 1.15rem; }
+.ai-markdown h3 { font-size: 1.05rem; }
+
+.ai-markdown p {
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+}
+
+.ai-markdown ul,
+.ai-markdown ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ai-markdown li {
+  color: #cbd5e1;
+  margin-bottom: 0.4rem;
+}
+
+.ai-markdown strong {
+  color: #f1f5f9;
+  font-weight: 600;
+}
+
+.card {
+  padding: 2.5rem;
+}
+
+.report-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 ::-webkit-scrollbar {

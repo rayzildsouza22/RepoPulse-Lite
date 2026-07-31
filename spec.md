@@ -1,9 +1,8 @@
 # RepoPulse Lite
 ### Technical Specification (Spec-Driven Development)
 
-Version: 1.0
-
-Author: Rayzil Vionna D'Souza
+**Version:** 1.0  
+**Author:** Rayzil Vionna D'Souza
 
 ---
 
@@ -11,7 +10,7 @@ Author: Rayzil Vionna D'Souza
 
 RepoPulse Lite is an AI-powered GitHub repository analytics platform that evaluates repository activity using deterministic commit complexity heuristics and Large Language Models (LLMs).
 
-The application enables engineering managers and developers to obtain a quick understanding of repository health, development momentum, and commit hygiene without manually reviewing Git history.
+The application enables developers, engineering managers, and technical recruiters to quickly understand repository health, development momentum, and commit quality without manually reviewing Git history.
 
 ---
 
@@ -21,75 +20,76 @@ The application shall:
 
 - Accept a public GitHub repository URL
 - Fetch the latest 20 commits using the GitHub REST API
-- Determine commit complexity tiers
+- Analyze commit complexity using predefined heuristics
 - Calculate an overall Repository Health Score
-- Generate an AI Executive Summary
-- Display analytics using an interactive dashboard
+- Generate an AI-powered Executive Summary
+- Present repository insights through an interactive dashboard
 
 ---
 
 # 3. Functional Requirements
 
-## Repository Input
+## 3.1 Repository Input
 
 The user shall be able to:
 
 - Enter a public GitHub repository URL
-- Validate the URL before submission
-- Analyze the repository with one click
+- Validate the repository URL before submission
+- Start analysis with a single click
 
 ---
 
-## GitHub Integration
+## 3.2 GitHub Integration
 
 The backend shall:
 
-- Extract owner and repository name
+- Extract repository owner and name
 - Fetch the latest 20 commits
 - Retrieve commit statistics
+- Handle invalid repository URLs
 - Handle GitHub API failures
-- Handle rate limits
-- Handle private repositories
+- Handle API rate limits
+- Reject private repositories
 
 ---
 
-## Commit Classification
+## 3.3 Commit Classification
 
-Each commit shall be classified as:
+Each commit shall be classified into one of three tiers.
 
-Tier 1
+### Tier 1 (Low Complexity)
 
-- Less than 50 lines changed
-- OR documentation-only commit
+- Fewer than 50 lines changed
+- OR documentation-only commits
 
-Tier 2
+### Tier 2 (Medium Complexity)
 
-- 50–250 lines changed
+- Between 50 and 250 lines changed
 - Fewer than five modified files
 
-Tier 3
+### Tier 3 (High Complexity)
 
 - More than 250 lines changed
 - OR more than five modified files
 
 ---
 
-## Repository Health Score
+## 3.4 Repository Health Score
 
-The application shall calculate a score between 0 and 100.
+The application shall calculate a Repository Health Score ranging from **0 to 100**.
 
-The score is determined using:
+The score is determined using heuristic analysis of:
 
-- Tier distribution
+- Commit tier distribution
 - Commit message quality
 - Repository activity
 - Complexity balance
 
 ---
 
-## AI Analysis
+## 3.5 AI Analysis
 
-The LLM shall generate:
+The Large Language Model shall generate:
 
 - Executive Summary
 - Development Momentum
@@ -98,7 +98,9 @@ The LLM shall generate:
 
 ---
 
-# 4. Non Functional Requirements
+# 4. Non-Functional Requirements
+
+The system shall be:
 
 - Responsive
 - Secure
@@ -106,163 +108,169 @@ The LLM shall generate:
 - Modular
 - Maintainable
 - Accessible
+- Scalable
 
 ---
 
 # 5. Technology Stack
 
-Frontend
+## Frontend
 
 - React
 - TypeScript
-- TailwindCSS
+- Tailwind CSS
+- Framer Motion
 - Recharts
 - Axios
 
-Backend
+## Backend
 
 - FastAPI
 - Python 3.11
 - HTTPX
 - Pydantic
 
-AI
+## AI
 
 - Groq API
 
-Deployment
+## Deployment
 
-- Vercel
-- Render
+- Vercel (Frontend)
+- Render (Backend)
 
 ---
 
-# 6. High Level Architecture
+# 6. High-Level Architecture
 
-Frontend
-
-↓
-
-FastAPI Backend
-
-↓
-
-GitHub REST API
-
-↓
-
-Commit Analyzer
-
-↓
-
-Health Score Engine
-
-↓
-
-Groq AI
-
-↓
-
-Frontend Dashboard
+```text
+                User
+                  │
+                  ▼
+        React Frontend (Vite)
+                  │
+                  ▼
+         FastAPI Backend API
+          │                 │
+          ▼                 ▼
+ GitHub REST API      Groq AI API
+          │                 │
+          └────────┬────────┘
+                   ▼
+          Repository Analysis
+                   │
+                   ▼
+       Interactive Analytics Dashboard
+```
 
 ---
 
 # 7. Backend Modules
 
-API Layer
+## API Layer
 
-- Repository endpoint
-- Analysis endpoint
-- Health endpoint
+- Repository Endpoint
+- Analysis Endpoint
+- Health Endpoint
 
-Service Layer
+## Service Layer
 
 - GitHub Service
-- Analysis Service
-- AI Service
+- Repository Analysis Service
+- AI Summary Service
 
-Utility Layer
+## Utility Layer
 
-- URL validation
-- Helpers
+- URL Validation
+- Commit Classification
+- Health Score Calculation
+- Helper Functions
 
-Configuration Layer
+## Configuration Layer
 
-- Environment variables
-- API configuration
+- Environment Variables
+- API Configuration
+- Application Settings
 
 ---
 
 # 8. Frontend Modules
 
-Home Page
-
-Dashboard
-
-Repository Input
-
-Health Score Card
-
-Tier Distribution Chart
-
-Commit Analysis Table
-
-AI Summary
-
-Repository Statistics
-
-Loading Skeleton
-
-Error Handling
+- Home Page
+- Repository Input Form
+- Dashboard
+- Repository Header
+- Health Score Card
+- Repository Statistics
+- Tier Distribution Chart
+- Score Breakdown
+- Commit Analysis Table
+- AI Executive Summary
+- Loading Skeleton
+- Error Handling
 
 ---
 
 # 9. API Endpoints
 
-GET /
-
-GET /health
-
-POST /api/v1/analyze
-
-POST /api/v1/github
+| Method | Endpoint | Description |
+|---------|----------|-------------|
+| GET | `/` | Root endpoint |
+| GET | `/health` | Health check |
+| POST | `/api/v1/analyze` | Analyze repository |
+| POST | `/api/v1/github` | Fetch GitHub repository information |
 
 ---
 
 # 10. Security
 
-- Environment variables
+The application implements:
+
+- Environment variable management
 - Input validation
-- URL sanitization
+- Repository URL sanitization
 - Secure API communication
 - No secrets committed to Git
+- Graceful exception handling
 
 ---
 
-# 11. Future Improvements
+# 11. Assumptions & Limitations
 
-- Authentication
-- Analysis History
-- PostgreSQL
+- Only public GitHub repositories are supported.
+- Analysis is limited to the latest 20 commits.
+- Repository insights are heuristic-based and intended for quick evaluation.
+- Results depend on GitHub API availability and rate limits.
+
+---
+
+# 12. Future Improvements
+
+- User Authentication
+- Repository Analysis History
+- PostgreSQL Database Integration
 - Repository Comparison
-- Organization Analytics
+- Organization-Level Analytics
+- Export Reports (PDF/CSV)
+- Historical Trend Analysis
 
 ---
 
-# 12. Success Criteria
+# 13. Success Criteria
 
 The project is considered complete when:
 
-✓ Repository analysis succeeds
+- ✅ Repository analysis completes successfully
+- ✅ Commit classification is generated
+- ✅ Repository Health Score is calculated
+- ✅ AI Executive Summary is generated
+- ✅ Interactive dashboard renders successfully
+- ✅ Error handling works correctly
+- ✅ Application is deployed
+- ✅ Documentation is completed
 
-✓ Commit classification succeeds
+---
 
-✓ Health score generated
+# 14. Conclusion
 
-✓ AI summary generated
-
-✓ Dashboard renders successfully
-
-✓ Application deployed
-
-✓ Documentation completed
+RepoPulse Lite provides an efficient and intelligent way to evaluate GitHub repositories by combining deterministic commit analysis with AI-generated insights. The platform offers developers and engineering teams a concise overview of repository quality through an intuitive analytics dashboard.

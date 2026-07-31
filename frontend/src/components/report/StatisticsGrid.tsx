@@ -9,7 +9,7 @@ import {
   Timer,
 } from "lucide-react";
 
-import type{ RepositoryInfo, Statistics } from "../../types/analysis";
+import type { RepositoryInfo, Statistics } from "../../types/analysis";
 
 type Props = {
   repositoryInfo: RepositoryInfo;
@@ -17,18 +17,16 @@ type Props = {
   executionTime: number;
 };
 
-function StatCard({
-  icon,
-  title,
-  value,
-}: {
+type StatCardProps = {
   icon: React.ReactNode;
   title: string;
   value: string | number;
-}) {
+};
+
+function StatCard({ icon, title, value }: StatCardProps) {
   return (
-    <div className="rounded-xl border border-slate-700 bg-[#151C27] p-5">
-      <div className="mb-3 text-sky-400">
+    <div className="card rounded-2xl border border-slate-700 bg-[#151C27] shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-sky-500/40">
+      <div className="mb-5 text-sky-400">
         {icon}
       </div>
 
@@ -36,7 +34,7 @@ function StatCard({
         {title}
       </p>
 
-      <h3 className="mt-2 text-2xl font-bold text-white">
+      <h3 className="mt-2 text-2xl font-bold text-white break-words">
         {value}
       </h3>
     </div>
@@ -49,52 +47,52 @@ function StatisticsGrid({
   executionTime,
 }: Props) {
   return (
-    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-6">
 
       <StatCard
-        icon={<Star size={22} />}
+        icon={<Star size={26} />}
         title="Stars"
         value={repositoryInfo.stars}
       />
 
       <StatCard
-        icon={<GitFork size={22} />}
+        icon={<GitFork size={26} />}
         title="Forks"
         value={repositoryInfo.forks}
       />
 
       <StatCard
-        icon={<Eye size={22} />}
+        icon={<Eye size={26} />}
         title="Watchers"
         value={repositoryInfo.watchers}
       />
 
       <StatCard
-        icon={<AlertCircle size={22} />}
+        icon={<AlertCircle size={26} />}
         title="Open Issues"
         value={repositoryInfo.open_issues}
       />
 
       <StatCard
-        icon={<Plus size={22} />}
+        icon={<Plus size={26} />}
         title="Avg Additions"
         value={statistics.average_additions}
       />
 
       <StatCard
-        icon={<Minus size={22} />}
+        icon={<Minus size={26} />}
         title="Avg Deletions"
         value={statistics.average_deletions}
       />
 
       <StatCard
-        icon={<Folder size={22} />}
+        icon={<Folder size={26} />}
         title="Avg Files Changed"
         value={statistics.average_files_changed}
       />
 
       <StatCard
-        icon={<Timer size={22} />}
+        icon={<Timer size={26} />}
         title="Execution Time"
         value={`${executionTime}s`}
       />

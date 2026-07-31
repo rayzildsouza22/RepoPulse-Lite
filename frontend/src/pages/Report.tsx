@@ -20,8 +20,8 @@ function Report() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0B1120] px-8 py-10 lg:px-12 xl:px-20">
-      <div className="mx-auto w-full max-w-[1800px] px-8 space-y-8">
+    <main className="min-h-screen bg-[#0B1120] py-10">
+      <div className="report-container">
 
         {/* Repository Header */}
         <RepositoryHeader
@@ -30,9 +30,9 @@ function Report() {
         />
 
         {/* Health + Statistics */}
-        <section className="grid grid-cols-1 gap-8 xl:grid-cols-3">
+        <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
 
-          <div className="xl:col-span-1">
+          <div className="lg:col-span-1">
             <HealthScoreCard
               score={data.health_score}
               grade={data.grade}
@@ -42,7 +42,7 @@ function Report() {
             />
           </div>
 
-          <div className="xl:col-span-2">
+          <div className="min-w-0 lg:col-span-2">
             <StatisticsGrid
               repositoryInfo={data.repository_info}
               statistics={data.statistics}
@@ -53,7 +53,7 @@ function Report() {
         </section>
 
         {/* Score + Chart */}
-        <section className="grid grid-cols-1 gap-8 xl:grid-cols-2">
+        <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 
           <ScoreBreakdown
             breakdown={data.score_breakdown}

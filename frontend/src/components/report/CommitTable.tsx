@@ -24,25 +24,25 @@ function badgeColor(tier: string) {
 
 function CommitTable({ commits }: Props) {
   return (
-    <div className="rounded-2xl border border-slate-700 bg-[#151C27] p-8 shadow-xl">
+    <div className="card rounded-2xl border border-slate-700 bg-[#151C27] shadow-lg">
 
-      <h2 className="mb-6 text-2xl font-bold text-white">
+      <h2 className="mb-8 text-2xl font-bold text-white">
         Recent Commits
       </h2>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto rounded-xl">
 
-        <table className="w-full">
+        <table className="w-full table-fixed">
 
-          <thead>
+          <thead className="sticky top-0 bg-[#151C27]">
 
             <tr className="border-b border-slate-700">
 
-              <th className="py-3 text-left text-slate-300">
+              <th className="w-28 py-4 text-left text-slate-300">
                 SHA
               </th>
 
-              <th className="text-left text-slate-300">
+              <th className="w-40 text-left text-slate-300">
                 Author
               </th>
 
@@ -50,7 +50,7 @@ function CommitTable({ commits }: Props) {
                 Commit Message
               </th>
 
-              <th className="text-left text-slate-300">
+              <th className="w-28 text-left text-slate-300">
                 Tier
               </th>
 
@@ -64,25 +64,25 @@ function CommitTable({ commits }: Props) {
 
               <tr
                 key={commit.short_sha}
-                className="border-b border-slate-800"
+                className="border-b border-slate-800 transition hover:bg-slate-800/60"
               >
 
-                <td className="py-4 font-mono text-sky-400">
+                <td className="w-28 py-5 font-mono font-semibold text-sky-400">
                   {commit.short_sha}
                 </td>
 
-                <td className="text-white">
+                <td className="w-40 truncate font-medium text-white">
                   {commit.author}
                 </td>
 
-                <td className="text-slate-300">
+                <td className="truncate text-slate-300">
                   {commit.message}
                 </td>
 
-                <td>
+                <td className="w-28">
 
                   <span
-                    className={`rounded-full px-3 py-1 text-sm text-white ${badgeColor(commit.tier)}`}
+                    className={`rounded-full px-4 py-1 text-sm font-semibold text-white ${badgeColor(commit.tier)}`}
                   >
                     {commit.tier}
                   </span>
