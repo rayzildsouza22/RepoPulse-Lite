@@ -92,6 +92,14 @@ Example:
 ![Recent Commit Analysis](screenshots/commit-analysis-table.png)
 
 
+## Documentation
+
+Additional project documentation is available in:
+
+- DEVELOPMENT.md — Development methodology, AI tooling audit, heuristic logic, environment setup, and development workflow.
+- spec.md — Architecture, system design, API flow, and implementation specification.
+
+
 ## Future Improvements
 
 - PDF report export
