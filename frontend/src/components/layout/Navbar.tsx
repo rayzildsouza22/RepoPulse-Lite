@@ -21,7 +21,7 @@ function Navbar() {
         </div>
 
         <a
-          href="https://github.com"
+          href="https://github.com/rayzildsouza22/RepoPulse-Lite"
           target="_blank"
           rel="noopener noreferrer"
           className="rounded-lg border border-[#263041] px-4 py-2 text-slate-300 transition hover:border-sky-500 hover:text-white"
