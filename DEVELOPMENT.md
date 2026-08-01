@@ -2,228 +2,317 @@
 
 # RepoPulse Lite – Development Documentation
 
-## Project Overview
+**Version:** 1.0
 
-RepoPulse Lite is a full-stack web application developed to analyze public GitHub repositories. The application retrieves repository information and recent commit history, applies deterministic heuristics to evaluate repository health, and uses a Large Language Model (LLM) to generate an executive summary of repository activity.
+**Author:** Rayzil Vionna D'Souza
+
+---
+
+# Project Overview
+
+RepoPulse Lite is a full-stack web application that analyzes public GitHub repositories and presents repository health insights through an interactive dashboard.
+
+The application combines GitHub repository metadata, commit analysis, repository statistics, deterministic health scoring, and AI-generated summaries to provide an overall assessment of repository quality.
+
+The project consists of a React frontend, a FastAPI backend, GitHub REST API integration, and the Groq API for executive repository summaries.
 
 ---
 
 # Development Methodology
 
-The project was developed using an incremental software engineering approach. Each module was designed, implemented, tested, and integrated individually before moving to the next phase. AI tools were used as development assistants for brainstorming, implementation guidance, debugging, and code refinement where appropriate. The final implementation, testing, deployment, and verification were carried out by the developer.
+The project was developed in multiple phases, beginning with the backend architecture and GitHub API integration, followed by repository analysis, repository statistics, health score computation, AI summary generation, frontend dashboard development, testing, deployment, and documentation.
+
+Development was carried out incrementally. Individual modules were implemented and tested before being integrated into the complete application, making it easier to identify and resolve issues during development.
+
+AI tools were used where they helped improve productivity, particularly for debugging, implementation discussions, UI refinement, and documentation. All major implementation decisions, integration, testing, deployment, and verification were carried out by the developer.
 
 ---
 
-## Phase 1 – Requirement Analysis
+# Phase 1 – Requirement Analysis
 
-- Reviewed the internship assignment specification.
-- Identified mandatory functional and non-functional requirements.
-- Planned the overall system architecture.
-- Selected the technology stack.
+The project began by reviewing the assessment requirements and identifying the expected deliverables.
 
----
+Activities included:
 
-## Phase 2 – System Design
-
-Designed a modular full-stack architecture consisting of:
-
-- React + TypeScript frontend
-- FastAPI backend
-- GitHub REST API integration
-- Groq LLM integration
-- Modular backend services
-- Responsive dashboard interface
+- Understanding functional requirements
+- Reviewing evaluation criteria
+- Planning project architecture
+- Selecting the technology stack
+- Identifying required external APIs
 
 ---
 
-## Phase 3 – Backend Development
+# Phase 2 – System Design
 
-Implemented the backend using FastAPI.
+A modular client-server architecture was designed.
 
-Features implemented include:
+Frontend
 
-- API routing
-- Request validation
-- Repository URL validation
-- Exception handling
-- GitHub API integration
-- Commit analysis engine
-- Repository health score calculation
-- AI summary endpoint
+- React
+- TypeScript
+- Vite
+
+Backend
+
+- FastAPI
+- Service-based architecture
+
+External Services
+
+- GitHub REST API
+- Groq API
+
+The application separates presentation, business logic, external API communication, and repository analysis into independent modules.
 
 ---
 
-## Phase 4 – GitHub API Integration
+# Phase 3 – Backend Development
 
-Integrated the GitHub REST API to retrieve:
+Backend development started with FastAPI routing and request validation.
+
+Major modules implemented include:
+
+- Repository URL extraction
+- Repository validation
+- GitHub API communication
+- Commit Analyzer
+- Repository Statistics Engine
+- Repository Health Score Engine
+- AI Summary Service
+- Error handling
+- API response generation
+
+Each service was developed independently before being integrated into the analysis pipeline.
+
+---
+
+# Phase 4 – GitHub API Integration
+
+The GitHub REST API was integrated to retrieve:
 
 - Repository metadata
-- Latest 20 commits
+- Latest commits
 - Commit statistics
-- Files modified
-- Repository information
+- Commit details
+- Repository activity
 
-Implemented graceful handling for:
+The backend also handles:
 
-- Invalid repositories
+- Invalid repository URLs
 - Private repositories
 - API failures
-- Rate limits
-- Network exceptions
+- Network failures
+- Rate limiting
 
 ---
 
-## Phase 5 – Commit Analysis Engine
+# Phase 5 – Repository Analysis
 
-Developed a deterministic heuristic engine to classify commit complexity.
+Repository analysis is performed in multiple stages.
 
-### Tier 1 (Low Complexity)
+### Commit Classification
 
-- Documentation updates
-- Less than 50 lines changed
+Each commit is classified into one of three heuristic tiers using the Commit Analyzer.
 
-### Tier 2 (Medium Complexity)
+- Tier 1 – High-quality engineering commits
+- Tier 2 – Regular development commits
+- Tier 3 – Maintenance or low-information commits
 
-- 50–250 lines changed
-- Fewer than 5 modified files
-
-### Tier 3 (High Complexity)
-
-- More than 250 lines changed
-- More than 5 modified files
+The classification uses commit message analysis together with Conventional Commit prefixes and predefined keyword heuristics.
 
 ---
 
-## Phase 6 – AI Integration
+### Repository Statistics
 
-Integrated the Groq API to generate:
+Repository statistics are calculated using commit metadata.
 
-- Executive repository summary
-- Development momentum analysis
-- Commit hygiene observations
-- Repository insights
+The statistics include:
+
+- Average files changed
+- Average additions
+- Average deletions
+- Largest commit
+- Smallest commit
 
 ---
 
-## Phase 7 – Frontend Development
+### Repository Health Score
 
-Developed the frontend using React and TypeScript.
+The Repository Health Score is calculated using five weighted components.
 
-Implemented:
+| Component | Weight |
+|-----------|-------:|
+| Commit Quality | 25 |
+| Repository History | 20 |
+| Commit Size | 20 |
+| Commit Diversity | 20 |
+| Repository Activity | 15 |
 
-- Repository URL input
-- Loading indicators
-- Error handling
-- Repository statistics
-- Health score visualization
-- Commit tier distribution chart
+Maximum Score = **100**
+
+The health engine also generates:
+
+- Repository Grade
+- Repository Rating
+- Repository Maturity
+- Assessment Explanation
+- Score Breakdown
+- Tier Distribution
+
+---
+
+# Phase 6 – AI Integration
+
+After repository analysis is completed, the processed repository information is supplied to the Groq API.
+
+The AI generates:
+
+- Executive Summary
+- Repository Overview
+- Development Momentum
+- Repository Health Insights
+- Commit Hygiene Observations
+
+The AI operates on the computed repository metrics rather than directly processing raw GitHub data.
+
+---
+
+# Phase 7 – Frontend Development
+
+The frontend was developed after the backend APIs were functional.
+
+The dashboard was built incrementally by implementing:
+
+- Home Page
+- Repository URL Input
+- Navigation Bar
+- Repository Header
+- Health Score Card
+- Repository Statistics
+- Score Breakdown
+- Tier Distribution Chart
+- Commit Analysis Table
 - AI Executive Summary
-- Commit analysis table
-- Responsive layout
+- Loading States
+- Error Handling
+
+Each component was connected to the backend once the corresponding API functionality had been verified.
 
 ---
 
-## Phase 8 – Testing
+# Phase 8 – Testing
 
-The application was tested throughout development to verify:
+Testing was performed continuously throughout development.
+
+Areas tested include:
 
 - Repository URL validation
-- API communication
+- GitHub API communication
+- Commit classification
+- Statistics calculation
+- Health score calculation
+- AI summary generation
+- Frontend/backend integration
+- Dashboard rendering
 - Error handling
-- AI response generation
-- Backend/frontend integration
-- Responsive user interface
+- Deployment
 
-Issues identified during testing were resolved before proceeding to the next development phase.
+Issues identified during testing were corrected before moving to the next phase.
 
 ---
 
-## Phase 9 – Deployment
+# Phase 9 – Deployment
 
-Frontend deployed using:
+The application was deployed as two independent services.
+
+Frontend
 
 - Vercel
 
-Backend deployed using:
+Backend
 
 - Render
 
-Environment variables were securely configured using platform-provided secret management.
+Environment variables were securely configured through the deployment platforms.
+
+---
+
+# Development Environment
+
+Operating System
+
+- Windows
+
+IDE
+
+- Visual Studio Code
+
+Programming Languages
+
+- Python
+- TypeScript
+
+Frontend
+
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Axios
+- Recharts
+
+Backend
+
+- FastAPI
+- Pydantic
+- HTTPX
+
+External Services
+
+- GitHub REST API
+- Groq API
+
+Version Control
+
+- Git
+- GitHub
 
 ---
 
 # AI Tooling Audit
 
-The project was developed by the author with assistance from AI development tools where appropriate. AI was used to support development by providing implementation suggestions, debugging assistance, and documentation improvements. All generated suggestions were reviewed, modified where necessary, integrated into the project, tested, and verified by the developer.
+AI tools were used selectively during development as coding assistants to improve productivity and help resolve implementation issues.
 
-## ChatGPT (OpenAI)
+## ChatGPT
 
 Used for:
 
-- Understanding assignment requirements
-- Discussing software architecture
+- Discussing backend architecture
 - FastAPI implementation guidance
-- API design discussions
+- API integration discussions
 - Debugging backend issues
-- Explaining implementation approaches
-- Documentation review
 - Deployment guidance
+- Documentation review
+- General implementation suggestions
 
 ## IBM Bob
 
 Used for:
 
 - Frontend refinement
-- React component improvements
+- UI improvements
+- React component adjustments
 - Resolving frontend implementation issues
-- UI enhancement suggestions
 
-The final implementation, project integration, testing, debugging, deployment, and submission preparation were completed by the developer.
+AI-generated suggestions were reviewed before being incorporated into the project. Final implementation, integration, debugging, deployment, testing, and verification were completed by the developer.
 
 ---
 
-# Development Environment
+# Git Workflow
 
-**Operating System**
+Git and GitHub were used throughout development.
 
-- Windows
-
-**IDE**
-
-- Visual Studio Code
-
-**Programming Languages**
-
-- Python
-- TypeScript
-
-**Frameworks**
-
-- React
-- FastAPI
-
-**Libraries**
-
-- Tailwind CSS
-- Axios
-- Recharts
-- Framer Motion
-- Pydantic
-- HTTPX
-
-**Version Control**
-
-- Git
-- GitHub
-
-**Deployment Platforms**
-
-- Vercel
-- Render
-
-**LLM Provider**
-
-- Groq API
+The project followed an incremental commit workflow with feature additions, bug fixes, deployment updates, and documentation improvements committed separately.
 
 ---
 
@@ -231,108 +320,23 @@ The final implementation, project integration, testing, debugging, deployment, a
 
 No external Model Context Protocol (MCP) servers or custom MCP skills were integrated into this project.
 
-The application was developed using standard development tools together with AI-assisted development workflows.
-
----
-
-# Heuristic Logic Specification
-
-The repository analysis follows deterministic rules before generating the AI summary.
-
-## Commit Classification
-
-### Tier 1
-
-- Documentation-only commits
-- Less than 50 lines changed
-
-### Tier 2
-
-- Between 50 and 250 lines changed
-- Fewer than 5 modified files
-
-### Tier 3
-
-- More than 250 lines changed
-- More than 5 modified files
-
-## Repository Health Score
-
-The Repository Health Score is calculated using repository activity and commit characteristics, including:
-
-- Commit complexity distribution
-- Commit message quality
-- Repository activity
-- Code change patterns
-
-The final score is normalized to a value between **0 and 100**.
-
----
-
-# Environment Setup
-
-## Clone Repository
-
-```bash
-git clone https://github.com/<your-username>/RepoPulse-Lite.git
-
-cd RepoPulse-Lite
-```
-
-## Backend Setup
-
-```bash
-cd backend
-
-python -m venv venv
-
-# Windows
-
-venv\Scripts\activate
-
-# Linux/macOS
-
-source venv/bin/activate
-
-pip install -r requirements.txt
-
-uvicorn app.main:app --reload
-```
-
-## Frontend Setup
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
-## Environment Variables
-
-Create a `.env` file inside the backend directory.
-
-```env
-GITHUB_TOKEN=your_github_token
-GROQ_API_KEY=your_groq_api_key
-```
-
 ---
 
 # Challenges Encountered
 
 Some challenges encountered during development included:
 
-- Validating GitHub repository URLs
-- Handling GitHub API failures and rate limits
+- GitHub API integration
+- Repository URL validation
+- Commit classification heuristics
+- Repository health score calculation
 - Backend and frontend integration
-- Rendering AI-generated summaries consistently
-- Frontend responsiveness across different screen sizes
-- Deployment configuration on Render and Vercel
-- Refining the user interface
+- Cross-Origin Resource Sharing (CORS) configuration
+- Deployment on Render and Vercel
+- Frontend responsiveness
+- AI response formatting
 
-Each challenge was addressed through iterative testing, debugging, and refinement before finalizing the implementation.
+Each issue was addressed through testing, debugging, and iterative refinement.
 
 ---
 
@@ -341,15 +345,31 @@ Each challenge was addressed through iterative testing, debugging, and refinemen
 Potential improvements include:
 
 - Repository comparison
-- Historical analytics
-- PDF report export
-- Dark/Light mode
+- Historical repository analytics
 - Contributor analytics
+- Authentication
 - Persistent repository history
+- PDF export
+- CSV export
+- Dark/Light mode
 - Advanced repository metrics
+
+---
+
+# Submission Deliverables
+
+The project submission includes:
+
+- Public GitHub Repository
+- Live Frontend Deployment
+- Live Backend Deployment
+- README.md
+- DEVELOPMENT.md
+- spec.md
+- Complete Source Code
 
 ---
 
 # Author
 
-**Rayzil Vionna D'Souza**
+**Rayzil Vionna DSouza**
